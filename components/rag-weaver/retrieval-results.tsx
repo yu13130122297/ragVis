@@ -1,9 +1,11 @@
 "use client"
 
 import { useRAGStore } from "@/lib/hooks/use-rag-store"
+import { useTranslation } from "@/lib/hooks/use-language"
 
 export function RetrievalResults() {
   const { session, hoveredIds, selectedIds, setHoveredIds, setSelectedIds, toggleChunkLock } = useRAGStore()
+  const { t } = useTranslation()
 
   if (!session) return null
 
@@ -14,11 +16,11 @@ export function RetrievalResults() {
         <div className="flex items-center gap-1.5">
           <div className="w-4 h-4 rounded bg-accent/20 flex items-center justify-center">
             <svg className="w-2.5 h-2.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <span className="text-[10px] font-medium text-foreground">Retrieved</span>
+          <span className="text-[10px] font-medium text-foreground">{t.retrieval.title}</span>
           <span className="text-[10px] text-muted-foreground">({session.retrievedChunks.length})</span>
         </div>
       </div>
@@ -51,7 +53,7 @@ export function RetrievalResults() {
                   <span className="text-[9px] px-1 py-0.5 rounded bg-muted text-muted-foreground">
                     {chunk.metadata.source}
                   </span>
-                  <div className="flex items-center gap-0.5" title={`Relevance: ${(chunk.relevanceScore * 100).toFixed(0)}%`}>
+                  <div className="flex items-center gap-0.5" title={`${t.retrieval.relevance}: ${(chunk.relevanceScore * 100).toFixed(0)}%`}>
                     <div className="w-8 h-1 bg-muted rounded-full overflow-hidden">
                       <div className="h-full bg-primary rounded-full" style={{ width: `${chunk.relevanceScore * 100}%` }} />
                     </div>
@@ -63,7 +65,7 @@ export function RetrievalResults() {
                 <button
                   onClick={(e) => { e.stopPropagation(); toggleChunkLock(chunk.id) }}
                   className={`p-0.5 rounded transition-colors ${isLocked ? "text-[#95e679] bg-[#95e679]/10" : "text-muted-foreground hover:text-foreground"}`}
-                  title={isLocked ? "Unlock" : "Lock"}
+                  title={isLocked ? t.retrieval.unlock : t.retrieval.lock}
                 >
                   <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     {isLocked ? (

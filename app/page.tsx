@@ -12,9 +12,12 @@ import { SelectionDetails } from "@/components/rag-weaver/selection-details"
 import { QueryPanel } from "@/components/rag-weaver/query-panel"
 import { RetrievalResults } from "@/components/rag-weaver/retrieval-results"
 import { GeneratedResponse } from "@/components/rag-weaver/generated-response"
+import { LanguageSwitcherButton } from "@/components/rag-weaver/language-switcher"
+import { useTranslation } from "@/lib/hooks/use-language"
 
 export default function RAGWeaverDashboard() {
   const { initializeSession, session } = useRAGStore()
+  const { t } = useTranslation()
 
   useEffect(() => {
     initializeSession()
@@ -25,7 +28,7 @@ export default function RAGWeaverDashboard() {
       <div className="h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-muted-foreground">Loading RAG session...</p>
+          <p className="text-sm text-muted-foreground">{t.loading.session}</p>
         </div>
       </div>
     )
@@ -49,16 +52,17 @@ export default function RAGWeaverDashboard() {
               <path d="M2 12l10 5 10-5" />
             </svg>
           </div>
-          <h1 className="text-sm font-semibold text-foreground">RAG-Weaver</h1>
-          <span className="text-xs text-muted-foreground hidden sm:inline">Visual Analytics for RAG Pipelines</span>
+          <h1 className="text-sm font-semibold text-foreground">{t.header.title}</h1>
+          <span className="text-xs text-muted-foreground hidden sm:inline">{t.header.subtitle}</span>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs">
             <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-muted-foreground hidden sm:inline">Active</span>
+            <span className="text-muted-foreground hidden sm:inline">{t.header.active}</span>
           </div>
-          <span className="text-xs text-muted-foreground px-2 py-0.5 rounded bg-muted">IEEE TVCG</span>
+          <span className="text-xs text-muted-foreground px-2 py-0.5 rounded bg-muted">{t.header.ieee}</span>
+          <LanguageSwitcherButton />
         </div>
       </header>
 
@@ -87,21 +91,21 @@ export default function RAGWeaverDashboard() {
           {/* Row 1-4: Top section */}
           {/* View A: Semantic Terrain - 4 cols, 4 rows */}
           <div className="col-span-4 row-span-4">
-            <ViewPanel title="A: Semantic Terrain" subtitle="Contour + Voronoi + Lens" badge="Lens" className="h-full">
+            <ViewPanel title={t.views.semanticTerrain.title} subtitle={t.views.semanticTerrain.subtitle} badge={t.views.semanticTerrain.badge} className="h-full">
               <SemanticTerrain />
             </ViewPanel>
           </div>
 
           {/* View B: Retrieval Stream - 2 cols, 4 rows (narrow) */}
           <div className="col-span-2 row-span-4">
-            <ViewPanel title="B: Stream" subtitle="Relevance" badge="Lock" className="h-full">
+            <ViewPanel title={t.views.stream.title} subtitle={t.views.stream.subtitle} badge={t.views.stream.badge} className="h-full">
               <RetrievalStream key={session?.id} />
             </ViewPanel>
           </div>
 
           {/* View C: Attention Loom - 3 cols, 4 rows (wider) */}
           <div className="col-span-3 row-span-4">
-            <ViewPanel title="C: Attention Loom" subtitle="Bipartite attention graph" badge="Bundle" className="h-full">
+            <ViewPanel title={t.views.attentionLoom.title} subtitle={t.views.attentionLoom.subtitle} badge={t.views.attentionLoom.badge} className="h-full">
               <AttentionLoom key={session?.id} />
             </ViewPanel>
           </div>
@@ -109,7 +113,7 @@ export default function RAGWeaverDashboard() {
           {/* Row 5-8: Bottom section */}
           {/* View D: Uncertainty Glyphs - 3 cols, 4 rows */}
           <div className="col-span-3 row-span-4">
-            <ViewPanel title="D: Uncertainty Glyphs" subtitle="Conflict metrics" className="h-full">
+            <ViewPanel title={t.views.uncertaintyGlyphs.title} subtitle={t.views.uncertaintyGlyphs.subtitle} className="h-full">
               <UncertaintyGlyphs key={session?.id} />
             </ViewPanel>
           </div>
@@ -117,9 +121,9 @@ export default function RAGWeaverDashboard() {
           {/* View E: Hypothetical Playground - 4 cols, 4 rows */}
           <div className="col-span-4 row-span-4">
             <ViewPanel
-              title="E: Hypothetical Playground"
-              subtitle="What-if Sankey paths"
-              badge="Prune"
+              title={t.views.hypotheticalPlayground.title}
+              subtitle={t.views.hypotheticalPlayground.subtitle}
+              badge={t.views.hypotheticalPlayground.badge}
               className="h-full"
             >
               <HypotheticalPlayground key={session?.id} />
@@ -128,7 +132,7 @@ export default function RAGWeaverDashboard() {
 
           {/* Selection Details - 2 cols, 4 rows */}
           <div className="col-span-2 row-span-4">
-            <ViewPanel title="Selection" subtitle="Brushing & Linking" className="h-full">
+            <ViewPanel title={t.views.selection.title} subtitle={t.views.selection.subtitle} className="h-full">
               <SelectionDetails key={session?.id} />
             </ViewPanel>
           </div>
