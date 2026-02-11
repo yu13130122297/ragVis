@@ -1,0 +1,237 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@variant dark (&:is(.dark *));
+
+/* Academic dark mode theme for RAG-Weaver visualization system */
+:root {
+  --background: oklch(0.13 0.01 260);
+  --foreground: oklch(0.95 0.01 260);
+  --card: oklch(0.16 0.015 260);
+  --card-foreground: oklch(0.95 0.01 260);
+  --popover: oklch(0.14 0.012 260);
+  --popover-foreground: oklch(0.95 0.01 260);
+  --primary: oklch(0.75 0.18 200);
+  --primary-foreground: oklch(0.13 0.01 260);
+  --secondary: oklch(0.22 0.02 260);
+  --secondary-foreground: oklch(0.9 0.01 260);
+  --muted: oklch(0.2 0.015 260);
+  --muted-foreground: oklch(0.65 0.02 260);
+  --accent: oklch(0.7 0.2 330);
+  --accent-foreground: oklch(0.13 0.01 260);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.95 0.01 260);
+  --border: oklch(0.28 0.02 260);
+  --input: oklch(0.22 0.02 260);
+  --ring: oklch(0.75 0.18 200);
+
+  /* Visualization-specific colors */
+  --viz-terrain-low: oklch(0.25 0.08 260);
+  --viz-terrain-high: oklch(0.7 0.2 200);
+  --viz-attention-high: oklch(0.8 0.22 330);
+  --viz-attention-low: oklch(0.35 0.05 260);
+  --viz-stream-1: oklch(0.65 0.18 200);
+  --viz-stream-2: oklch(0.7 0.2 330);
+  --viz-stream-3: oklch(0.75 0.18 150);
+  --viz-stream-4: oklch(0.68 0.15 60);
+  --viz-glyph-safe: oklch(0.7 0.18 150);
+  --viz-glyph-warning: oklch(0.75 0.2 80);
+  --viz-glyph-danger: oklch(0.65 0.22 25);
+  --viz-lens: oklch(0.8 0.2 200);
+
+  --chart-1: oklch(0.7 0.2 200);
+  --chart-2: oklch(0.75 0.22 330);
+  --chart-3: oklch(0.7 0.18 150);
+  --chart-4: oklch(0.75 0.18 60);
+  --chart-5: oklch(0.65 0.15 280);
+  --radius: 0.5rem;
+  --sidebar: oklch(0.14 0.012 260);
+  --sidebar-foreground: oklch(0.95 0.01 260);
+  --sidebar-primary: oklch(0.75 0.18 200);
+  --sidebar-primary-foreground: oklch(0.13 0.01 260);
+  --sidebar-accent: oklch(0.22 0.02 260);
+  --sidebar-accent-foreground: oklch(0.9 0.01 260);
+  --sidebar-border: oklch(0.28 0.02 260);
+  --sidebar-ring: oklch(0.75 0.18 200);
+}
+
+.dark {
+  --background: oklch(0.13 0.01 260);
+  --foreground: oklch(0.95 0.01 260);
+  --card: oklch(0.16 0.015 260);
+  --card-foreground: oklch(0.95 0.01 260);
+  --popover: oklch(0.14 0.012 260);
+  --popover-foreground: oklch(0.95 0.01 260);
+  --primary: oklch(0.75 0.18 200);
+  --primary-foreground: oklch(0.13 0.01 260);
+  --secondary: oklch(0.22 0.02 260);
+  --secondary-foreground: oklch(0.9 0.01 260);
+  --muted: oklch(0.2 0.015 260);
+  --muted-foreground: oklch(0.65 0.02 260);
+  --accent: oklch(0.7 0.2 330);
+  --accent-foreground: oklch(0.13 0.01 260);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.95 0.01 260);
+  --border: oklch(0.28 0.02 260);
+  --input: oklch(0.22 0.02 260);
+  --ring: oklch(0.75 0.18 200);
+  --chart-1: oklch(0.7 0.2 200);
+  --chart-2: oklch(0.75 0.22 330);
+  --chart-3: oklch(0.7 0.18 150);
+  --chart-4: oklch(0.75 0.18 60);
+  --chart-5: oklch(0.65 0.15 280);
+  --sidebar: oklch(0.14 0.012 260);
+  --sidebar-foreground: oklch(0.95 0.01 260);
+  --sidebar-primary: oklch(0.75 0.18 200);
+  --sidebar-primary-foreground: oklch(0.13 0.01 260);
+  --sidebar-accent: oklch(0.22 0.02 260);
+  --sidebar-accent-foreground: oklch(0.9 0.01 260);
+  --sidebar-border: oklch(0.28 0.02 260);
+  --sidebar-ring: oklch(0.75 0.18 200);
+}
+@import "tailwindcss/theme" theme(reference);
+
+@theme {
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* Custom visualization styles */
+.viz-glow {
+  filter: drop-shadow(0 0 8px var(--primary));
+}
+
+.viz-pulse {
+  animation: vizPulse 2s ease-in-out infinite;
+}
+
+@keyframes vizPulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.contour-path {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.attention-link {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-opacity 0.3s ease;
+}
+
+.lens-handle {
+  cursor: grab;
+}
+
+.lens-handle:active {
+  cursor: grabbing;
+}
+
+/* 隐藏滚动条但保留滚动功能 */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ========================================
+   Custom Scrollbar Styles (Dark Theme)
+   ======================================== */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.35 0.03 260) transparent;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.32 0.03 260);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.42 0.04 260);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: oklch(0.5 0.08 200);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Compact scrollbar for smaller containers */
+.scrollbar-compact::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.scrollbar-compact {
+  scrollbar-width: thin;
+}
+
+/* Primary colored scrollbar */
+.scrollbar-primary::-webkit-scrollbar-thumb {
+  background: oklch(0.55 0.12 200);
+}
+
+.scrollbar-primary::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.65 0.15 200);
+}
+
+.scrollbar-primary {
+  scrollbar-color: oklch(0.55 0.12 200) transparent;
+}
+
+/* Auto-hide scrollbar (shows on hover) */
+.scrollbar-auto-hide {
+  overflow-y: auto;
+}
+
+.scrollbar-auto-hide::-webkit-scrollbar-thumb {
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.scrollbar-auto-hide:hover::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0.03 260);
+}
+
+.scrollbar-auto-hide:hover::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.45 0.04 260);
+}
